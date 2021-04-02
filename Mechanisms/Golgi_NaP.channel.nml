@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" 
+         id="GolgiNaP">
+
+    <notes>Channel file containing a single Channel description</notes>
+
+    <ionChannel id="GolgiNaP" conductance="10pS" type="ionChannelHH" species="na">
+
+        <notes>Golgi Na Channel, Na persistent channel based on mod file from E.D Angelo, T.Nieus, A. Fontana. </notes>
+                
+        <annotation>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description rdf:about="GolgiNaP">
+                    
+                    <bqmodel:isDescribedBy xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                        <rdf:Bag>
+                            <rdf:li>Solinas S, Forti L, Cesana E, Mapelli J, De Schutter E, D’Angelo E. Computational reconstruction of pacemaking and intrinsic electroresponsiveness in cerebellar Golgi cells. Front Cell Neurosci. 2007;1:2 </rdf:li>
+                            <rdf:li rdf:resource="https://www.frontiersin.org/articles/10.3389/neuro.03.002.2007/full"/>
+                        </rdf:Bag>
+                    </bqmodel:isDescribedBy>
+
+                
+                    <bqbiol:isVersionOf xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+                        <rdf:Bag>
+                            <rdf:li>Na channels</rdf:li>
+                            <rdf:li rdf:resource="http://senselab.med.yale.edu/senselab/NeuronDB/channelGene2.htm#table2"/>
+                        </rdf:Bag>
+                    </bqbiol:isVersionOf>
+
+                </rdf:Description>
+            </rdf:RDF>
+        </annotation>
+		
+
+        <gate id="m" type="gateHHratesInf" instances="1">
+            <q10Settings type="q10ExpTemp" q10Factor="3" experimentalTemp="30 degC"/>
+			<!--mod file has scaling factor of 5 with tau because linoid function is scaling alpha and beta by scale/y = 5 mV. HG, 2019-->
+            <forwardRate type="HHExpLinearRate" rate="0.91per_ms" scale="5mV" midpoint="-40mV"/>		
+            <reverseRate type="HHExpLinearRate" rate="0.62per_ms" scale="-5mV" midpoint="-40mV"/>
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-43mV" scale="5mV"/>
+        </gate>
+                            
+    </ionChannel>
+	
+
+</neuroml>

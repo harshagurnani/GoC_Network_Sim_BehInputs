@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" 
+         id="GIRK">
+
+    <notes>Channel file containing a single Channel description</notes>
+
+    <ionChannel id="GIRK" conductance="10pS" type="ionChannelHH" species="k">
+
+        <notes>G-protein coupled inward rectifying potassium current, based on kir2.mod. Described by Gruber et al 2003. Fitted tau from experimental data as gaussian - H.G. </notes>
+                
+        <annotation>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description rdf:about="GIRK">
+                    
+                    <bqmodel:isDescribedBy xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                        <rdf:Bag>
+                            <rdf:li>Gruber, A.J., Solla, S.A., Surmeier, D.J., and Houk, J.C. Modulation of striatal single units by expected reward: a spiny neuron model displaying dopamine-induced bistability. J. Neurophysiol. 90:1095-1114, 2003. </rdf:li>
+                        </rdf:Bag>
+                    </bqmodel:isDescribedBy>
+
+                
+                    <bqbiol:isVersionOf xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+                        <rdf:Bag>
+                            <rdf:li>K channels</rdf:li>
+                            <rdf:li rdf:resource="http://senselab.med.yale.edu/senselab/NeuronDB/channelGene2.htm#table3"/>
+                        </rdf:Bag>
+                    </bqbiol:isVersionOf>
+
+                </rdf:Description>
+            </rdf:RDF>
+        </annotation>
+
+        <gate id="m" type="gateHHtauInf" instances="1">
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-82mV" scale="-13mV"/>
+			<timeCourse type="Golgi_GIRK_taum" />
+        </gate>
+                            
+    </ionChannel>
+
+	<ComponentType name="Golgi_GIRK_taum" extends="baseVoltageDepTime">
+
+
+        <Constant name="TIME_SCALE" dimension="time" value="1 ms"/>
+		<Constant name="VOLT_SCALE" dimension="voltage" value="1 mV"/>
+		
+        <Dynamics>
+			<DerivedVariable name="V" dimension="none" value="v / VOLT_SCALE"/>
+			<DerivedVariable name="t" exposure="t" dimension="time" value="TIME_SCALE * (1.96178 + 1.82208*exp(-(V+41.7348)*(V+41.7348)/706.8499))"/>
+        </Dynamics>
+
+    </ComponentType>
+</neuroml>

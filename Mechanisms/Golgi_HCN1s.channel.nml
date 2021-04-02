@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" 
+         id="GolgiHCN1s">
+
+    <notes>Channel file containing a single Channel description</notes>
+
+    <ionChannel id="GolgiHCN1s" conductance="10pS" type="ionChannelHH" species="h">
+
+        <notes>HCN1 channel - slow component of the double exponential, based on mod file by S Solinas, L Forti, E DAngelo. </notes>
+                
+        <annotation>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description rdf:about="GolgiHCN1s">
+                    
+                    <bqmodel:isDescribedBy xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                        <rdf:Bag>
+                            <rdf:li>Solinas S, Forti L, Cesana E, Mapelli J, De Schutter E, D'Angelo E. (2007) Computational reconstruction of pacemaking and intrinsic electroresponsiveness in cerebellar Golgi cells.  Front Cell Neurosci. 2007;1:2.</rdf:li>
+                            <rdf:li rdf:resource="http://www.ncbi.nlm.nih.gov/pubmed/18946520"/>
+                        </rdf:Bag>
+                    </bqmodel:isDescribedBy>
+
+                </rdf:Description>
+            </rdf:RDF>
+        </annotation>
+
+        <gate id="s" type="gateHHtauInf" instances="1">
+            <q10Settings type="q10ExpTemp" q10Factor="3" experimentalTemp="33 degC"/>
+            <!--timeCourse type="Golgi_HCN1s_tau" tC="0.01451" tD="-4.056 mV" tE="2.302585092 per_mV"/-->
+			<!--steadyState type="Golgi_HCN1s_oinf" rA="0.002096 per_mV" rB="0.97596" midpoint="-72.49mV" scaleC="0.11305 per_mV"/-->
+			<timeCourse type="Golgi_HCN1s_tau"/>
+			<steadyState type="Golgi_HCN1s_oinf" />
+        </gate>
+		
+    </ionChannel>
+	
+	<ComponentType name="Golgi_HCN1s_oinf" extends="baseVoltageDepVariable">
+
+		<!--Parameter name="rA" dimension="per_voltage"/-->
+		<!--Parameter name="rB" dimension="none"/-->
+		<!--Parameter name="midpoint" dimension="voltage"/-->
+        <!--Parameter name="scaleC" dimension="per_voltage"/-->
+		
+		<Constant name="VOLT_SCALE" dimension="voltage" value="1 mV"/>
+        <Dynamics>
+			<DerivedVariable name="V" dimension="none" value="v / VOLT_SCALE"/>
+            <!--DerivedVariable name="x" exposure="x" dimension="none" value=" (rA * v + rB) * 1/(1 + exp((v - midpoint)*scaleC )) "/-->
+			<DerivedVariable name="x" exposure="x" dimension="none" value=" (1 - (0.002096 *V + 0.9759)) * 1/(1 + exp((V + 72.49)*0.11305 ))   "/>
+        </Dynamics>
+
+    </ComponentType>
+	
+	<ComponentType name="Golgi_HCN1s_tau" extends="baseVoltageDepTime">
+
+		<!--Parameter name="tC" dimension="none"/-->
+		<!--Parameter name="tD" dimension="voltage"/-->
+		<!--Parameter name="tE" dimension="per_voltage"/-->
+        <Constant name="TIME_SCALE" dimension="time" value="1 ms"/>
+		<Constant name="VOLT_SCALE" dimension="voltage" value="1 mV"/>
+		
+        <Dynamics>
+            <!--DerivedVariable name="t" exposure="t" dimension="time" value="TIME_SCALE * exp( ((tC*v) - tD)* tE)"/-->
+			<DerivedVariable name="V" dimension="none" value="v / VOLT_SCALE"/>
+			<DerivedVariable name="t2" dimension="none" value="(exp ((0.01451 * V) + 4.056 )* 2.302585092 )"/>
+			<ConditionalDerivedVariable name="t" exposure="t" dimension="time">
+                <Case condition="t2 .gt. ( 200 )" value="200 * TIME_SCALE"/>
+                <Case condition="t2  .lt. ( 0.1 )" value="0.1 * TIME_SCALE"/>
+                <Case value="t2 * TIME_SCALE"/>
+            </ConditionalDerivedVariable>
+        </Dynamics>
+
+    </ComponentType>
+
+</neuroml>

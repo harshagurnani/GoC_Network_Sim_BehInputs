@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<Lems xmlns="http://www.neuroml.org/lems/0.7.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/lems/0.7.3 https://raw.githubusercontent.com/LEMS/LEMS/development/Schemas/LEMS/LEMS_v0.7.3.xsd">
+  <Component base_rate="0 Hz" id="Transient_350" time_off="2050 ms" time_on="2000 ms" transient_rate="350 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_140" time_off="4000 ms" time_on="2000 ms" transient_rate="140 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_120" time_off="4000 ms" time_on="2000 ms" transient_rate="120 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_160" time_off="4000 ms" time_on="2000 ms" transient_rate="160 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_080" time_off="4000 ms" time_on="2000 ms" transient_rate="80 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_220" time_off="4000 ms" time_on="2000 ms" transient_rate="220 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_000" time_off="4000 ms" time_on="2000 ms" transient_rate="0 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_100" time_off="4000 ms" time_on="2000 ms" transient_rate="100 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_280" time_off="4000 ms" time_on="2000 ms" transient_rate="280 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_040" time_off="4000 ms" time_on="2000 ms" transient_rate="40 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_180" time_off="4000 ms" time_on="2000 ms" transient_rate="180 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_060" time_off="4000 ms" time_on="2000 ms" transient_rate="60 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_020" time_off="4000 ms" time_on="2000 ms" transient_rate="20 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_210" time_off="4000 ms" time_on="2000 ms" transient_rate="210 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_200" time_off="4000 ms" time_on="2000 ms" transient_rate="200 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_150" time_off="4000 ms" time_on="2000 ms" transient_rate="150 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_010" time_off="4000 ms" time_on="2000 ms" transient_rate="10 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_030" time_off="4000 ms" time_on="2000 ms" transient_rate="30 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_260" time_off="4000 ms" time_on="2000 ms" transient_rate="260 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_090" time_off="4000 ms" time_on="2000 ms" transient_rate="90 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_170" time_off="4000 ms" time_on="2000 ms" transient_rate="170 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_240" time_off="4000 ms" time_on="2000 ms" transient_rate="240 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_270" time_off="4000 ms" time_on="2000 ms" transient_rate="270 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_130" time_off="4000 ms" time_on="2000 ms" transient_rate="130 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_290" time_off="4000 ms" time_on="2000 ms" transient_rate="290 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_110" time_off="4000 ms" time_on="2000 ms" transient_rate="110 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_070" time_off="4000 ms" time_on="2000 ms" transient_rate="70 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_190" time_off="4000 ms" time_on="2000 ms" transient_rate="190 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_250" time_off="4000 ms" time_on="2000 ms" transient_rate="250 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_050" time_off="4000 ms" time_on="2000 ms" transient_rate="50 Hz" type="spikeGeneratorSwitchPoisson"/>
+  <Component base_rate="0 Hz" id="ON_230" time_off="4000 ms" time_on="2000 ms" transient_rate="230 Hz" type="spikeGeneratorSwitchPoisson"/>
+</Lems>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta4.xsd" 
+         id="GolgiKA">
+
+    <notes>Channel file containing a single Channel description</notes>
+
+    <ionChannel id="GolgiKA" conductance="10pS" type="ionChannelHH" species="k">
+
+        <notes>A-type potassium channel, based on mod file by E.DAngelo, T.Nieus, A. Fontana. </notes>
+                
+        <annotation>
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rdf:Description rdf:about="GolgiKA">
+                    
+                    <bqmodel:isDescribedBy xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+                        <rdf:Bag>
+                            <rdf:li>Solinas S, Forti L, Cesana E, Mapelli J, De Schutter E, D'Angelo E. (2007) Computational reconstruction of pacemaking and intrinsic electroresponsiveness in cerebellar Golgi cells.  Front Cell Neurosci. 2007;1:2. </rdf:li>
+                            <rdf:li rdf:resource="http://www.ncbi.nlm.nih.gov/pubmed/18946520"/>
+                        </rdf:Bag>
+                    </bqmodel:isDescribedBy>
+
+                
+                    <bqbiol:isVersionOf xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+                        <rdf:Bag>
+                            <rdf:li>K channels</rdf:li>
+                            <rdf:li rdf:resource="http://senselab.med.yale.edu/senselab/NeuronDB/channelGene2.htm#table3"/>
+                        </rdf:Bag>
+                    </bqbiol:isVersionOf>
+
+                </rdf:Description>
+            </rdf:RDF>
+        </annotation>
+
+        <gate id="a" type="gateHHratesInf" instances="3">
+            <q10Settings type="q10ExpTemp" q10Factor="3" experimentalTemp="25.5 degC"/>
+            <forwardRate type="HHSigmoidRate" rate="0.8147per_ms" scale="23.32708mV" midpoint="-9.17203mV"/>		
+            <reverseRate type="Golgi_KA_abeta" rate="0.1655per_ms" scale="19.47175mV" midpoint="-18.27914mV"/>
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-38mV" scale="17mV"/>
+        </gate>
+        
+		<gate id="b" type="gateHHratesInf" instances="1">
+            <q10Settings type="q10ExpTemp" q10Factor="3" experimentalTemp="25.5 degC"/>
+            <forwardRate type="HHSigmoidRate" rate="0.0368per_ms" scale="-12.84330mV" midpoint="-111.33209mV"/>		
+            <reverseRate type="HHSigmoidRate" rate="0.0345per_ms" scale="8.90123mV" midpoint="-49.9537mV"/>
+            <steadyState type="HHSigmoidVariable" rate="1" midpoint="-78.8mV" scale="-8.4mV"/>
+        </gate>
+		
+    </ionChannel>
+	
+	<ComponentType name="Golgi_KA_abeta" extends="baseHHRate">
+
+		<!--	inherited from baseHHRate	-->
+		<!--Parameter name="rate" dimension="per_time"/--> 
+		<!--Parameter name="midpoint" dimension="voltage"/-->
+        <!--Parameter name="scale" dimension="voltage"/-->
+		
+        <Dynamics>
+            <DerivedVariable name="r" exposure="r" dimension="per_time" value="rate*1/exp((v-midpoint)/scale)"/>
+        </Dynamics>
+
+    </ComponentType>
+
+</neuroml>

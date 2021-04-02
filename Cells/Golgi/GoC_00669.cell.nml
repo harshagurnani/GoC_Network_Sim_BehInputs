@@ -1,0 +1,113 @@
+<neuroml xmlns="http://www.neuroml.org/schema/neuroml2"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.neuroml.org/schema/neuroml2 https://raw.github.com/NeuroML/NeuroML2/development/Schemas/NeuroML2/NeuroML_v2beta5.xsd" id="GoC_00669">
+    <include href="../../Mechanisms/Golgi_Na.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_NaR.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_NaP.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_KA.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_SK2.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_KM.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_KV.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_BK.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_CaHVA.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_CaLVA.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_HCN1f.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_HCN1s.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_HCN2f.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_HCN2s.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_lkg.channel.nml"/>
+    <include href="../../Mechanisms/Golgi_CALC.nml"/>
+    <include href="../../Mechanisms/Golgi_CALC2.nml"/>
+    <include href="../../Mechanisms/GIRK.channel.nml"/>
+    <cell id="GoC_00669">
+        <morphology id="morphology_Golgi">
+            <segment id="0" name="Soma">
+                <proximal x="0.000000e+00" y="0.000000e+00" z="0.000000e+00" diameter="27.0"/>
+                <distal x="0.000000e+00" y="0.000000e+00" z="0.000000e+00" diameter="27.0"/>
+            </segment>
+            <segment id="1" name="dend2">
+                <parent segment="0"/>
+                <proximal x="0.000000e+00" y="0.000000e+00" z="0.000000e+00" diameter="3.0"/>
+                <distal x="0.000000e+00" y="0.000000e+00" z="1.130000e+02" diameter="3.0"/>
+            </segment>
+            <segment id="2" name="dend_1">
+                <parent segment="0"/>
+                <proximal x="0.000000e+00" y="0.000000e+00" z="0.000000e+00" diameter="3.0"/>
+                <distal x="4.000000e+00" y="8.700000e+01" z="7.200000e+01" diameter="3.0"/>
+            </segment>
+            <segment id="5" name="dend_3">
+                <parent segment="0"/>
+                <proximal x="0.000000e+00" y="0.000000e+00" z="0.000000e+00" diameter="3.0"/>
+                <distal x="-4.000000e+00" y="-8.700000e+01" z="7.200000e+01" diameter="3.0"/>
+            </segment>
+            <segment id="6" name="axon">
+                <parent segment="0" fractionAlong="0.0"/>
+                <proximal x="0.000000e+00" y="0.000000e+00" z="0.000000e+00" diameter="2.4"/>
+                <distal x="0.000000e+00" y="0.000000e+00" z="-1.200000e+03" diameter="2.4"/>
+            </segment>
+            <segmentGroup neuroLexId="sao864921383" id="Soma">
+                <member segment="0"/>
+            </segmentGroup>
+            <segmentGroup neuroLexId="sao864921383" id="Section_1">
+                <property tag="numberInternalDivisions" value="10"/>
+                <member segment="1"/>
+            </segmentGroup>
+            <segmentGroup neuroLexId="sao864921383" id="dend_1">
+                <property tag="numberInternalDivisions" value="10"/>
+                <member segment="2"/>
+            </segmentGroup>
+            <segmentGroup neuroLexId="sao864921383" id="Section_3">
+                <property tag="numberInternalDivisions" value="10"/>
+                <member segment="5"/>
+            </segmentGroup>
+            <segmentGroup neuroLexId="sao864921383" id="Section_axon">
+                <property tag="numberInternalDivisions" value="100"/>
+                <member segment="6"/>
+            </segmentGroup>
+            <segmentGroup id="all">
+                <include segmentGroup="Soma"/>
+                <include segmentGroup="Section_1"/>
+                <include segmentGroup="dend_1"/>
+                <include segmentGroup="Section_3"/>
+                <include segmentGroup="Section_axon"/>
+            </segmentGroup>
+            <segmentGroup neuroLexId="GO:0043025" id="soma_group">
+                <include segmentGroup="Soma"/>
+            </segmentGroup>
+            <segmentGroup neuroLexId="GO:0030425" id="dendrite_group">
+                <include segmentGroup="Section_1"/>
+                <include segmentGroup="dend_1"/>
+                <include segmentGroup="Section_3"/>
+            </segmentGroup>
+            <segmentGroup neuroLexId="GO:0030424" id="axon_group">
+                <include segmentGroup="Section_axon"/>
+            </segmentGroup>
+        </morphology>
+        <biophysicalProperties id="biophys_GoC_00669">
+            <membraneProperties>
+                <channelDensity id="Leak" ionChannel="LeakConductance" condDensity="0.0199513646554 mS_per_cm2" erev="-55 mV" ion="non_specific"/>
+                <channelDensity id="Golgi_Na_soma_group" ionChannel="GolgiNa" condDensity="40.1645283859 mS_per_cm2" erev="87.39 mV" segmentGroup="soma_group" ion="na"/>
+                <channelDensity id="Golgi_NaP_soma_group" ionChannel="GolgiNaP" condDensity="0.189094504061 mS_per_cm2" erev="87.39 mV" segmentGroup="soma_group" ion="na"/>
+                <channelDensity id="Golgi_NaR_soma_group" ionChannel="GolgiNaR" condDensity="1.66343219623 mS_per_cm2" erev="87.39 mV" segmentGroup="soma_group" ion="na"/>
+                <channelDensity id="Golgi_KA_soma_group" ionChannel="GolgiKA" condDensity="8.17836025997 mS_per_cm2" erev="-84.69 mV" segmentGroup="soma_group" ion="k"/>
+                <channelDensity id="Golgi_KAHP_soma_group" ionChannel="GolgiSK2" condDensity="30.6024081841 mS_per_cm2" erev="-84.69 mV" segmentGroup="soma_group" ion="k"/>
+                <channelDensity id="Golgi_KV_soma_group" ionChannel="GolgiKV" condDensity="29.0575036318 mS_per_cm2" erev="-84.69 mV" segmentGroup="soma_group" ion="k"/>
+                <channelDensity id="Golgi_KM_soma_group" ionChannel="GolgiKM" condDensity="0.929436390784 mS_per_cm2" erev="-84.69 mV" segmentGroup="soma_group" ion="k"/>
+                <channelDensity id="Golgi_BK_soma_group" ionChannel="GolgiBK" condDensity="3.14017066873 mS_per_cm2" erev="-84.69 mV" segmentGroup="soma_group" ion="k"/>
+                <channelDensity id="Golgi_hcn1f_soma_group" ionChannel="GolgiHCN1f" condDensity="0.0479162577635 mS_per_cm2" erev="-20 mV" segmentGroup="soma_group" ion="h"/>
+                <channelDensity id="Golgi_hcn1s_soma_group" ionChannel="GolgiHCN1s" condDensity="0.0472125301234 mS_per_cm2" erev="-20 mV" segmentGroup="soma_group" ion="h"/>
+                <channelDensity id="Golgi_hcn2f_soma_group" ionChannel="GolgiHCN2f" condDensity="0.0655814845596 mS_per_cm2" erev="-20 mV" segmentGroup="soma_group" ion="h"/>
+                <channelDensity id="Golgi_hcn2s_soma_group" ionChannel="GolgiHCN2s" condDensity="0.0832603378857 mS_per_cm2" erev="-20 mV" segmentGroup="soma_group" ion="h"/>
+                <channelDensity id="GIRK_dendrite_group" ionChannel="GIRK" condDensity="0.006 mS_per_cm2" erev="-84.69 mV" segmentGroup="dendrite_group" ion="k"/>
+                <channelDensityNernst id="Golgi_Ca_HVA_soma_group" ionChannel="GolgiCaHVA" condDensity="0.493113944381 mS_per_cm2" segmentGroup="soma_group" ion="ca"/>
+                <channelDensityNernst id="Golgi_Ca_LVA_soma_group" ionChannel="GolgiCaLVA" condDensity="0.288490903284 mS_per_cm2" segmentGroup="soma_group" ion="ca2"/>
+                <spikeThresh value="0 mV"/>
+                <specificCapacitance value="1.0 uF_per_cm2"/>
+                <initMembPotential value="-60 mV"/>
+            </membraneProperties>
+            <intracellularProperties>
+                <species segmentGroup="soma_group" id="ca" concentrationModel="Golgi_CALC" ion="ca" initialConcentration="5e-5mM" initialExtConcentration="2mM"/>
+                <species segmentGroup="soma_group" id="ca2" concentrationModel="Golgi_CALC2" ion="ca2" initialConcentration="5e-5mM" initialExtConcentration="2mM"/>
+                <resistivity value="0.1 kohm_cm"/>
+            </intracellularProperties>
+        </biophysicalProperties>
+    </cell>
+</neuroml>

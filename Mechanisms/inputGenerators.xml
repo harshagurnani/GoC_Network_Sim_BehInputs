@@ -1,0 +1,270 @@
+<Lems xmlns="http://www.neuroml.org/lems/0.7.2"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.neuroml.org/lems/0.7.2">
+
+    <Include file="NeuroMLCoreDimensions.xml"/>
+    <Include file="Synapses.xml"/>
+
+	<spikeGeneratorSwitchPoisson id="MF_ON" base_rate="5 Hz" transient_rate="100 Hz" time_on="2000 ms" time_off="4000 ms" >
+    </spikeGeneratorSwitchPoisson>
+	<spikeGeneratorSwitchPoisson id="MF_OFF" base_rate="25 Hz" transient_rate="2 Hz" time_on="2000 ms" time_off="4000 ms" >
+    </spikeGeneratorSwitchPoisson>
+	<spikeGeneratorSwitchPoisson id="PF_ON" base_rate="2 Hz" transient_rate="30 Hz" time_on="2000 ms" time_off="4000 ms" >
+    </spikeGeneratorSwitchPoisson>
+	<spikeGeneratorSwitchPoisson id="PF_OFF" base_rate="20 Hz" transient_rate="1 Hz" time_on="2000 ms" time_off="4000 ms" >
+    </spikeGeneratorSwitchPoisson>
+	
+	
+    <ComponentType name="spikeGeneratorSwitchPoisson"
+                 extends="baseSpikeSource"
+                 description="Generator of spikes whose averageRate switches from R1 to R2 from t1 to t2">
+        <Parameter name="base_rate" dimension="per_time"/>
+        <Parameter name="transient_rate" dimension="per_time"/>
+		<Parameter name="time_on" dimension="time"/>
+		<Parameter name="time_off" dimension="time"/>
+
+		<Dynamics>
+            <StateVariable name="tsince" dimension="time" exposure="tsince"/>
+            <StateVariable name="isi" dimension="time"/>
+			<StateVariable name="curr_avgIsi" dimension="time" />
+            <TimeDerivative variable="tsince" value="1"/>
+
+            <OnStart>
+				<StateAssignment variable="tsince" value="0"/>
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+                <StateAssignment variable="isi" value=" - curr_avgIsi * log(1 - random(1))"/>
+            </OnStart>
+
+			<OnCondition test="tsince .gt. isi">
+                <StateAssignment variable="tsince" value="0"/>
+                <StateAssignment variable="isi" value="- curr_avgIsi * log(1 - random(1))"/>
+                <EventOut port="spike"/>
+            </OnCondition>
+				
+            <OnCondition test="t .gt. time_on .and. t .lt. time_off">
+				<StateAssignment variable="curr_avgIsi" value="1/transient_rate"/>
+            </OnCondition>
+			<OnCondition test="t .gt. time_off">
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+            </OnCondition>
+        </Dynamics>
+    </ComponentType>
+
+    <ComponentType name="spikeGeneratorMultLevels2"
+                 extends="baseSpikeSource"
+                 description="Generator of spikes whose averageRate switches from base_rate to Rate(i) at time ts(i), staying at that level for length on_period">
+        <Parameter name="base_rate" dimension="per_time"/>
+		<Parameter name="on_period" dimension="time"/>
+        <Parameter name="rate1" dimension="per_time"/>
+		<Parameter name="rate2" dimension="per_time"/>
+		<Parameter name="rate3" dimension="per_time"/>
+		<Parameter name="rate4" dimension="per_time"/>
+		<Parameter name="rate5" dimension="per_time"/>
+		<Parameter name="rate6" dimension="per_time"/>
+		
+		<Parameter name="ts1" dimension="time"/>
+		<Parameter name="ts2" dimension="time"/>
+		<Parameter name="ts3" dimension="time"/>
+		<Parameter name="ts4" dimension="time"/>
+		<Parameter name="ts5" dimension="time"/>
+		<Parameter name="ts6" dimension="time"/>
+
+		<Dynamics>
+            <StateVariable name="tsince" dimension="time" exposure="tsince"/>
+            <StateVariable name="isi" dimension="time"/>
+			<StateVariable name="curr_avgIsi" dimension="time" />
+			<StateVariable name="tswitch" dimension="time"/>
+			<StateVariable name="toff" dimension="time"/>
+            <TimeDerivative variable="tsince" value="1"/>
+
+            <OnStart>
+				<StateAssignment variable="tsince" value="0"/>
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+                <StateAssignment variable="isi" value=" - curr_avgIsi * log(1 - random(1))"/>
+				<StateAssignment variable="tswitch" value="ts1"/>
+				<StateAssignment variable="toff" value="tswitch+on_period"/>
+			</OnStart>
+
+			<OnCondition test="tsince .gt. isi">
+                <StateAssignment variable="tsince" value="0"/>
+                <StateAssignment variable="isi" value="- curr_avgIsi * log(1 - random(1))"/>
+                <EventOut port="spike"/>
+            </OnCondition>
+			
+			<OnCondition test="t .gt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+				<StateAssignment variable="toff" value="tswitch+on_period"/>
+            </OnCondition>
+			
+            
+			<OnCondition test="t .gt. ts1 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate1"/>
+				<StateAssignment variable="tswitch" value="ts2"/>
+				
+            </OnCondition>
+
+			<OnCondition test="t .gt. ts2 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate2"/>
+				<StateAssignment variable="tswitch" value="ts3"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts3 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate3"/>
+				<StateAssignment variable="tswitch" value="ts4"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts4 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate4"/>
+				<StateAssignment variable="tswitch" value="ts5"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts5 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate5"/>
+				<StateAssignment variable="tswitch" value="ts6"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts6 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate6"/>
+				
+            </OnCondition>
+			
+        </Dynamics>
+    </ComponentType>
+
+    <ComponentType name="spikeGeneratorMultLevels"
+                 extends="baseSpikeSource"
+                 description="Generator of spikes whose averageRate switches from base_rate to Rate(i) at time ts(i), staying at that level for length on_period">
+        <Parameter name="base_rate" dimension="per_time"/>
+		<Parameter name="on_period" dimension="time"/>
+		<Parameter name="off_period" dimension="time"/>
+		<Parameter name="tstart" dimension="time"/>
+		
+        <Parameter name="rate1" dimension="per_time"/>
+		<Parameter name="rate2" dimension="per_time"/>
+		<Parameter name="rate3" dimension="per_time"/>
+		<Parameter name="rate4" dimension="per_time"/>
+		<Parameter name="rate5" dimension="per_time"/>
+		<Parameter name="rate6" dimension="per_time"/>
+		
+		<Dynamics>
+            <StateVariable name="tsince" dimension="time" exposure="tsince"/>
+            <StateVariable name="isi" dimension="time"/>
+			<StateVariable name="curr_avgIsi" dimension="time" />
+			<StateVariable name="tswitch" dimension="time"/>
+			<StateVariable name="toff" dimension="time"/>
+			<StateVariable name="ts1" dimension="time"/>
+			<StateVariable name="ts2" dimension="time"/>
+			<StateVariable name="ts3" dimension="time"/>
+			<StateVariable name="ts4" dimension="time"/>
+			<StateVariable name="ts5" dimension="time"/>
+			<StateVariable name="ts6" dimension="time"/>
+            <TimeDerivative variable="tsince" value="1"/>
+
+            <OnStart>
+				<StateAssignment variable="tsince" value="0"/>
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+                <StateAssignment variable="isi" value=" - curr_avgIsi * log(1 - random(1))"/>
+				<StateAssignment variable="tswitch" value="tstart"/>
+				<StateAssignment variable="toff" value="tswitch+on_period"/>
+				<StateAssignment variable="ts1" value="tstart" />
+				<StateAssignment variable="ts2" value="tstart+on_period+off_period" />
+				<StateAssignment variable="ts3" value="tstart+2*on_period+2*off_period" />
+				<StateAssignment variable="ts4" value="tstart+3*on_period+3*off_period" />
+				<StateAssignment variable="ts5" value="tstart+4*on_period+4*off_period" />
+				<StateAssignment variable="ts6" value="tstart+5*on_period+5*off_period" />
+			</OnStart>
+
+			<OnCondition test="tsince .gt. isi">
+                <StateAssignment variable="tsince" value="0"/>
+                <StateAssignment variable="isi" value="- curr_avgIsi * log(1 - random(1))"/>
+                <EventOut port="spike"/>
+            </OnCondition>
+			
+			<OnCondition test="t .gt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+				<StateAssignment variable="toff" value="tswitch+on_period"/>
+            </OnCondition>
+			
+            
+			<OnCondition test="t .gt. ts1 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate1"/>
+				<StateAssignment variable="tswitch" value="ts2"/>
+				
+            </OnCondition>
+
+			<OnCondition test="t .gt. ts2 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate2"/>
+				<StateAssignment variable="tswitch" value="ts3"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts3 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate3"/>
+				<StateAssignment variable="tswitch" value="ts4"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts4 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate4"/>
+				<StateAssignment variable="tswitch" value="ts5"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts5 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate5"/>
+				<StateAssignment variable="tswitch" value="ts6"/>
+				
+            </OnCondition>
+			
+			<OnCondition test="t .gt. ts6 .and. t .lt. toff">
+				<StateAssignment variable="curr_avgIsi" value="1/rate6"/>
+				
+            </OnCondition>
+			
+        </Dynamics>
+    </ComponentType>
+
+
+	
+	<ComponentType name="spikeGeneratorDelayPoisson"
+                 extends="baseSpikeSource"
+                 description="Generator of spikes whose averageRate switches from R1 to R2 from t1 to t2">
+        <Parameter name="base_rate" dimension="per_time"/>
+        <Parameter name="transient_rate" dimension="per_time"/>
+		<Parameter name="time_on" dimension="time"/>
+		<Parameter name="time_off" dimension="time"/>
+
+		<Dynamics>
+            <StateVariable name="tsince" dimension="time" exposure="tsince"/>
+            <StateVariable name="isi" dimension="time"/>
+			<StateVariable name="curr_avgIsi" dimension="time" />
+            <TimeDerivative variable="tsince" value="1"/>
+
+            <OnStart>
+				<StateAssignment variable="tsince" value="0"/>
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+                <StateAssignment variable="isi" value="time_on"/>
+            </OnStart>
+
+			<OnCondition test="tsince .gt. isi">
+                <StateAssignment variable="tsince" value="0"/>
+                <StateAssignment variable="isi" value="- curr_avgIsi * log(1 - random(1))"/>
+                <EventOut port="spike"/>
+            </OnCondition>
+				
+            <OnCondition test="t .gt. time_on .and. t .lt. time_off">
+				<StateAssignment variable="curr_avgIsi" value="1/transient_rate"/>
+            </OnCondition>
+			<OnCondition test="t .gt. time_off">
+				<StateAssignment variable="curr_avgIsi" value="1/base_rate"/>
+            </OnCondition>
+        </Dynamics>
+    </ComponentType>
+
+  
+
+</Lems>
