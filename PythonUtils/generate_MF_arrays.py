@@ -18,7 +18,7 @@ def create_spkarray_file(
     offset=7,
     minrate=2,
     write=True,
-    behfile="D:\Work\OneDrive - University College London\models\dimensionality\Parameters\examplebeh.txt",
+    behfile="../Parameters/examplebeh.txt",
     wtlen=7,
     sparsef=0.5,
 ):

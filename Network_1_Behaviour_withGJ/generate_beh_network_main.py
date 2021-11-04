@@ -144,7 +144,7 @@ def create_GoC_network(duration=1000, dt=0.025, seed=100, runid=0, mf=0.2, pf=0.
     # create MF as spike array
     bint = 0.1
     time, rate = gip.create_rate(
-        "D:\Work\OneDrive - University College London\models\dimensionality\Parameters\examplebeh.txt",
+        "../Parameters/examplebeh.txt",
         np.random.random(size=(7, 1)),
         60,
         80,
