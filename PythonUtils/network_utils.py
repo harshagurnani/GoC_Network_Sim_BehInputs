@@ -199,7 +199,7 @@ def get_hetero_GoC_id(nGoC, nGoCPop, densityParams, seed=-1):
         np.random.seed(seed + 6000)
 
     file = open(densityParams, "rb")
-    allP = pkl.load(file)
+    allP = pkl.load(file, encoding="latin1")
     file.close()
 
     series = np.random.permutation(len(allP))
