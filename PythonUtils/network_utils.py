@@ -205,7 +205,7 @@ def get_hetero_GoC_id(nGoC, nGoCPop, densityParams, seed=-1):
     series = np.random.permutation(len(allP))
     id = [allP[series[x]] for x in range(nGoCPop)]
     # id = [ allP[np.random.randint(len(allP))] for jj in range(nGoCPop) ]
-    nCells_per_pop = nGoC / nGoCPop
+    nCells_per_pop = int(nGoC / nGoCPop)
     nGoC = nCells_per_pop * nGoCPop
 
     allid = []

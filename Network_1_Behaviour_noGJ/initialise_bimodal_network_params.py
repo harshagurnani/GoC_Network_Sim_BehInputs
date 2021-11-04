@@ -162,7 +162,7 @@ def get_simulation_params(
 
     params["nPop"] = nGoC_pop
     params["GoC_ParamID"], params["nGoC"] = nu.get_hetero_GoC_id(params["nGoC"], nGoC_pop, densityParams, seed=simid)
-    popsize = params["nGoC"] / params["nPop"]
+    popsize = int(params["nGoC"] / params["nPop"])
     params["nGoC_per_pop"] = popsize
     params["nGoC"], params["GoC_pos"] = nu.locate_GoC(params["nGoC"], volume, GoC_density, seed=simid)
 
