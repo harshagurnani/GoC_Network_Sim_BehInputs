@@ -42,7 +42,7 @@ def create_spkarray_file( windowLim=[0, 400], duration=20, seedstart=100, nArr=2
         if not wtCov:
 	        wtCov = np.identity( wtlen )*0.03
 			
-    print wtMean, wtCov
+    print(wtMean, wtCov)
 	
     allrates = {}
     allweights = {}

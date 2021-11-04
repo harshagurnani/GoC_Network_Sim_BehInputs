@@ -224,7 +224,7 @@ def get_simulation_params(simid,
 				Inp["conn_pairs"][jj][1,:]=np.mod(Inp["conn_pairs"][jj][1,:], popsize)
 			params["Inputs"]["types"].append(input )
 
-		print Inp["nInp"]
+		print(Inp["nInp"])
 		params["Inputs"][input] = Inp
 		ctr+=1
 
